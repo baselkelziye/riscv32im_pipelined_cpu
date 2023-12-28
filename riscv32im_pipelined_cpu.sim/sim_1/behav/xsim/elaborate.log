@@ -1,0 +1,38 @@
+Vivado Simulator v2023.2
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2023.2/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot cpu_tb_behav xil_defaultlib.cpu_tb xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 5 for port 'rs1_label_if_id_o' [C:/Users/Administrator/riscv32im_pipelined_cpu/riscv32im_pipelined_cpu.srcs/sources_1/new/cpu.v:220]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 5 for port 'rs2_label_if_id_o' [C:/Users/Administrator/riscv32im_pipelined_cpu/riscv32im_pipelined_cpu.srcs/sources_1/new/cpu.v:221]
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 2 for port 'wb_sel_id_ex_i' [C:/Users/Administrator/riscv32im_pipelined_cpu/riscv32im_pipelined_cpu.srcs/sources_1/new/cpu.v:308]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.mux_2_32
+Compiling module xil_defaultlib.pc_reg
+Compiling module xil_defaultlib.pc_adder
+Compiling module xil_defaultlib.instr_cache
+Compiling module xil_defaultlib.if_id_stage_reg
+Compiling module xil_defaultlib.regfile
+Compiling module xil_defaultlib.hazard_detection_unit
+Compiling module xil_defaultlib.control_unit
+Compiling module xil_defaultlib.imm_gen
+Compiling module xil_defaultlib.branch_jump
+Compiling module xil_defaultlib.mux_2_4
+Compiling module xil_defaultlib.mux_2_1
+Compiling module xil_defaultlib.id_ex_stage_reg
+Compiling module xil_defaultlib.forwarding_unit
+Compiling module xil_defaultlib.forwarding_data_mem
+Compiling module xil_defaultlib.mux_4_32
+Compiling module xil_defaultlib.alu
+Compiling module xil_defaultlib.ex_mem_stage_reg
+Compiling module xil_defaultlib.data_cache
+Compiling module xil_defaultlib.mem_wb_stage_reg
+Compiling module xil_defaultlib.cpu
+Compiling module xil_defaultlib.cpu_tb
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot cpu_tb_behav
