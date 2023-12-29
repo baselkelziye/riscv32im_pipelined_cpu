@@ -6,8 +6,10 @@ INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/Administrator/riscv32im_pi
 INFO: [VRFC 10-311] analyzing module control_unit
 INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/Administrator/riscv32im_pipelined_cpu/riscv32im_pipelined_cpu.srcs/sources_1/new/cpu.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module cpu
-WARNING: [VRFC 10-2938] 'stall' is already implicitly declared on line 170 [C:/Users/Administrator/riscv32im_pipelined_cpu/riscv32im_pipelined_cpu.srcs/sources_1/new/cpu.v:214]
-WARNING: [VRFC 10-2938] 'rs2_mem_wb_o' is already implicitly declared on line 370 [C:/Users/Administrator/riscv32im_pipelined_cpu/riscv32im_pipelined_cpu.srcs/sources_1/new/cpu.v:458]
+WARNING: [VRFC 10-3248] data object 'wb_sel_ex_mem_o' is already declared [C:/Users/Administrator/riscv32im_pipelined_cpu/riscv32im_pipelined_cpu.srcs/sources_1/new/cpu.v:110]
+WARNING: [VRFC 10-9364] second declaration of 'wb_sel_ex_mem_o' is ignored [C:/Users/Administrator/riscv32im_pipelined_cpu/riscv32im_pipelined_cpu.srcs/sources_1/new/cpu.v:110]
+WARNING: [VRFC 10-2938] 'stall' is already implicitly declared on line 171 [C:/Users/Administrator/riscv32im_pipelined_cpu/riscv32im_pipelined_cpu.srcs/sources_1/new/cpu.v:215]
+WARNING: [VRFC 10-2938] 'rs2_mem_wb_o' is already implicitly declared on line 372 [C:/Users/Administrator/riscv32im_pipelined_cpu/riscv32im_pipelined_cpu.srcs/sources_1/new/cpu.v:460]
 INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/Administrator/riscv32im_pipelined_cpu/riscv32im_pipelined_cpu.srcs/sources_1/new/data_cache.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module data_cache
 INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/Administrator/riscv32im_pipelined_cpu/riscv32im_pipelined_cpu.srcs/sources_1/new/ex_mem_stage_reg.v" into library xil_defaultlib

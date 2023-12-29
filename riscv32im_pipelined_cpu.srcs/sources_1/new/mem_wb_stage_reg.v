@@ -37,8 +37,8 @@ module mem_wb_stage_reg(
     input [31:0] alu_out_mem_wb_i,
     output reg [31:0] alu_out_mem_wb_o,
     
-    input [1:0] web_sel_mem_wb_i,
-    output reg [1:0] web_sel_mem_wb_o,
+    input [1:0] wb_sel_mem_wb_i,
+    output reg [1:0] wb_sel_mem_wb_o,
     
     input [31:0] imm_mem_wb_i,
     output reg [31:0] imm_mem_wb_o,
@@ -60,7 +60,7 @@ module mem_wb_stage_reg(
             rd_mem_wb_o = 5'd0;
             rd_data_mem_wb_o = 32'd0;
             alu_out_mem_wb_o = 32'd0;
-            web_sel_mem_wb_o = 2'd0;
+            wb_sel_mem_wb_o = 2'd0;
             imm_mem_wb_o = 32'd0;
             pc_mem_wb_o = 32'd0;
             is_memory_instruction_mem_wb_o = 0;
@@ -74,7 +74,7 @@ module mem_wb_stage_reg(
             rd_mem_wb_o <= rd_mem_wb_i;
             rd_data_mem_wb_o <= rd_data_mem_wb_i;
             alu_out_mem_wb_o <=  alu_out_mem_wb_i;
-            web_sel_mem_wb_o <= web_sel_mem_wb_i;
+            wb_sel_mem_wb_o <= wb_sel_mem_wb_i;
             imm_mem_wb_o <= imm_mem_wb_i;
             pc_mem_wb_o <= pc_mem_wb_i;
             is_memory_instruction_mem_wb_o <= is_memory_instruction_mem_wb_i;

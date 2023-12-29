@@ -7,7 +7,7 @@
 //forwarding unit'in bir priorirty mechanizmasi olabilir. Su an Stall eklenince calismasi lazim.
 //TODO: stall ekle
 //hazard detection bozuyor isi simdilik
-
+//web_sel ile wb_sel arasinda karisiklik var
 
 
 module cpu( input clk_i,
@@ -107,7 +107,7 @@ module cpu( input clk_i,
     
     wire [31:0] pc_ex_mem_o;
     
-    wire [1:0] web_sel_ex_mem_o;// control signal to WB 
+    wire [1:0] wb_sel_ex_mem_o;// control signal to WB 
                                 
                                 
     wire [31:0] imm_ex_mem_o;
@@ -130,7 +130,7 @@ module cpu( input clk_i,
     
     wire [31:0] alu_out_mem_wb_o;
     
-    wire [1:0] web_sel_mem_wb_o; // control signal to write back to reg file (which value)
+    wire [1:0] wb_sel_mem_wb_o; // control signal to write back to reg file (which value)
    
    wire [31:0] rd_data_mem_wb_i;
    wire [31:0] rd_data_mem_wb_o;
@@ -216,10 +216,11 @@ module cpu( input clk_i,
     
     
     hazard_detection_unit hazard_detection_unit(
+    .clk_i(clk_i),
     .is_load_instruction(is_load_instruction),
     .rd_label_id_ex_o(rd_id_ex_o),
-    .rs1_label_if_id_o(rs1_id_ex_i),
-    .rs2_label_if_id_o(rs2_id_ex_i),
+    .rs1_label_if_id_o(rs1_if_id_o),
+    .rs2_label_if_id_o(rs2_if_id_o),
     .stall(stall));
     
     control_unit u_control_unit(
@@ -306,10 +307,10 @@ module cpu( input clk_i,
                          //else send old vbalue
                          .read_write_sel_id_ex_o(read_write_sel_id_ex_o),
                          
-                         .wb_sel_id_ex_i(muxed_reg_write_en),//
+                         .wb_sel_id_ex_i(wb_sel_id_ex_i),//
                          .wb_sel_id_ex_o(wb_sel_id_ex_o),
                          
-                         .reg_wb_en_id_ex_i(reg_wb_en_id_ex_i),
+                         .reg_wb_en_id_ex_i(muxed_reg_write_en),
                          .reg_wb_en_id_ex_o(reg_wb_en_id_ex_o),
                          
                          .rd_id_ex_i(rd_if_id_o),
@@ -418,7 +419,7 @@ module cpu( input clk_i,
                     .pc_ex_mem_i(pc_id_ex_o),
                     .pc_ex_mem_o(pc_ex_mem_o),
                     .wb_sel_ex_mem_i(wb_sel_id_ex_o),
-                    .wb_sel_ex_mem_o(web_sel_ex_mem_o),
+                    .wb_sel_ex_mem_o(wb_sel_ex_mem_o),
                     .imm_ex_mem_i(imm_id_ex_o),
                     .imm_ex_mem_o(imm_ex_mem_o),
                     .rs1_label_ex_mem_i(rs1_label_id_ex_o),
@@ -469,8 +470,8 @@ module cpu( input clk_i,
                     .rd_data_mem_wb_o(rd_data_mem_wb_o),
                     .alu_out_mem_wb_i(alu_out_ex_mem_o),
                     .alu_out_mem_wb_o(alu_out_mem_wb_o),
-                    .web_sel_mem_wb_i(web_sel_ex_mem_o),
-                    .web_sel_mem_wb_o(web_sel_mem_wb_o),
+                    .wb_sel_mem_wb_i(wb_sel_ex_mem_o),
+                    .wb_sel_mem_wb_o(wb_sel_mem_wb_o),
                     .imm_mem_wb_i(imm_ex_mem_o),
                     .imm_mem_wb_o(imm_mem_wb_o),
                     .pc_mem_wb_i(pc_ex_mem_o),
@@ -489,7 +490,7 @@ module cpu( input clk_i,
                         .in1_i(rd_data_mem_wb_o),
                         .in2_i(imm_mem_wb_o),
                         .in3_i(pc_mem_wb_o_4),              
-                        .sel_i(web_sel_mem_wb_o),
+                        .sel_i(wb_sel_mem_wb_o),
                         .out_o(reg_wb_data_w));
     
     
