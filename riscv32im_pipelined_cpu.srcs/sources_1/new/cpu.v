@@ -250,8 +250,8 @@ module cpu( input clk_i,
 
     
     branch_jump u_branch_jump(  
-                                .in1_i(rs1_id_ex_o          ),
-                                .in2_i(rs2_id_ex_o          ),
+                                .in1_i(alu_in1_forwarded_input         ),//alu output yap
+                                .in2_i(alu_in2_forwarded_input         ),
                                 .bj_sel_i(branch_sel_id_ex_o),//sinyal
                                 .PC_sel_o(PC_sel_w          ));//sinyal
         wire [3:0] muxed_data_signal;                      
@@ -355,7 +355,7 @@ module cpu( input clk_i,
                 .in0_i(rs2_id_ex_o),
                 .in1_i(alu_out_mem_wb_o),
                 .in2_i(alu_out_ex_mem_o),
-                .in3_i(32'b1),
+                .in3_i(rd_data_mem_wb_o),
                 .sel_i(forwardDataCache),
                 .out_o(forwarded_address));
                           
@@ -369,7 +369,7 @@ module cpu( input clk_i,
                     .in0_i(alu_in1_w), //bir onceki 2x1 muxun cikisi (bagimlilik yok)
                     .in1_i(alu_out_mem_wb_o),//RS1 from mem/wb rd
                     .in2_i(alu_out_ex_mem_o),//RS1 from ex/mem rd
-                    .in3_i(rs2_mem_wb_o),// 
+                    .in3_i(rd_data_mem_wb_o),// 
                     .sel_i(forwardA),//forwardA 
                     .out_o(alu_in1_forwarded_input)
                     );
@@ -386,7 +386,7 @@ module cpu( input clk_i,
                     .in0_i(alu_in2_w), //bir onceki 2x1 muxun cikisi (bagimlilik yok)
                     .in1_i(alu_out_mem_wb_o),//RS2 from mem/wb rd
                     .in2_i(alu_out_ex_mem_o),//RS2 from ex/mem rd
-                    .in3_i(rs2_mem_wb_o),// 
+                    .in3_i(rd_data_mem_wb_o),// 
                     .sel_i(forwardB),//forwardAB
                     .out_o(alu_in2_forwarded_input)
                     );                                      

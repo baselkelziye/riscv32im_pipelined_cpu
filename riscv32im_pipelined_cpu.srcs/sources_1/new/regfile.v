@@ -214,7 +214,7 @@ module regfile(
     reg [31:0] registers [31:1]; // Array of 31 registers (register 0 is always 0)
     integer i;
     // Synchronous register write on the positive edge of the clock
-    always @(posedge clk_i)//make this * solved the problem?
+    always @(*)//make this * solved the problem?
     begin
         if (rst_i)
         begin
@@ -224,7 +224,7 @@ module regfile(
                 registers[i] <= 32'h00000000;
         end
         else if (write_en_i && rd_i != 0) // Ensure rd_i is not 0, as x0 is always 0
-        begin
+        begin #0
             registers[rd_i] <= rd_data_i;
         end
     end

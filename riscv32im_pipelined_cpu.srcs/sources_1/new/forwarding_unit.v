@@ -58,7 +58,7 @@ module forwarding_unit(
                  forwardA = 2'b11;
                 end
         
-        else if(rd_label_ex_mem_o  &&
+        else if(rd_label_ex_mem_o != 5'b0  &&
            reg_wb_en_ex_mem_o &&
            $signed(rd_label_ex_mem_o) == $signed(rs1_label_id_ex_o) &&
            !is_memory_instruction)
