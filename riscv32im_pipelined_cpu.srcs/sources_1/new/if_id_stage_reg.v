@@ -16,7 +16,7 @@ module if_id_stage_reg(
         if(rst_i) 
         begin
         #0.1;
-        pc_if_id_o = 32'd0;//x'ye cevirmek gerekebilir
+        pc_if_id_o = 32'd0;
         instruction_if_id_o = 32'dx;           
         end
      end   

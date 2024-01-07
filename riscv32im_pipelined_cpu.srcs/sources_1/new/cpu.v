@@ -3,12 +3,8 @@
 
 //register file'a yukselen darbeden oku, dusen darbede yazma islemi gerceklestirmemiz gerekebilir.
 
-//27.12.2023
-//forwarding unit'in bir priorirty mechanizmasi olabilir. Su an Stall eklenince calismasi lazim.
-//TODO: stall ekle
-//hazard detection bozuyor isi simdilik
-//web_sel ile wb_sel arasinda karisiklik var
-
+//6.01.2023
+//branch belli olana kdr ara da islemler giriyor, onlari flush etmen lazim
 
 module cpu( input clk_i,
             input rst_i,

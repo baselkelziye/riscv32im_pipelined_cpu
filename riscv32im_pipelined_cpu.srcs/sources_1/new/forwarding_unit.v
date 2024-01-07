@@ -35,7 +35,6 @@ module forwarding_unit(
     output reg  [1:0]  forwardB
     );
     
-    
     always @(rs1_label_id_ex_o, reg_wb_en_ex_mem_o, reg_wb_en_mem_wb_o, rd_label_ex_mem_o, rd_label_mem_wb_o,is_memory_instruction_mem_wb_o) begin
     
     if (reg_wb_en_mem_wb_o && (rd_label_mem_wb_o != 0) &&
@@ -43,13 +42,9 @@ module forwarding_unit(
             (rd_label_mem_wb_o == rs1_label_id_ex_o) &&
            !is_memory_instruction &&
            !is_memory_instruction_mem_wb_o ) begin
-            forwardA = 2'b01;
+            forwardA = 2'b01; 
         end
-    
-
-        
-
-        else  if(rd_label_mem_wb_o != 0  && 
+     else  if(rd_label_mem_wb_o != 0  && 
                 reg_wb_en_mem_wb_o &&
                 is_memory_instruction_mem_wb_o &&  // bir onceki islem memory islemi
                 !is_memory_instruction &&//su an memory islemi yok
@@ -72,9 +67,6 @@ module forwarding_unit(
             end 
     end
     
-    
-    
-    
         always @(rs2_label_id_ex_o, reg_wb_en_ex_mem_o, reg_wb_en_mem_wb_o, rd_label_ex_mem_o, rd_label_mem_wb_o,is_memory_instruction_mem_wb_o) begin    
 
         if(rd_label_ex_mem_o  && 
@@ -83,14 +75,14 @@ module forwarding_unit(
            !is_memory_instruction && 
            !is_memory_instruction_mem_wb_o)
             begin                               
-                    forwardB = 2'b10; // RS2 = EX MEM  RD
+                    forwardB = 2'b10; // RS2 = EX/MEM  RD
             end         
                  
         else if(reg_wb_en_mem_wb_o && (rd_label_mem_wb_o != 0) &&
         !(reg_wb_en_ex_mem_o && (rd_label_ex_mem_o != 0) && (rd_label_ex_mem_o == rs2_label_id_ex_o)) &&
         (rd_label_mem_wb_o == rs2_label_id_ex_o) &&
            !is_memory_instruction && !is_memory_instruction_mem_wb_o) begin  
-            forwardB = 2'b01;
+            forwardB = 2'b01;   //RS2 = MEM/WB RD
         end
      else  if(rd_label_mem_wb_o != 0  && 
                 reg_wb_en_mem_wb_o &&
