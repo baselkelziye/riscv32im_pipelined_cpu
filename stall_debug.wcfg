@@ -11,9 +11,9 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="27.855 ns"></ZoomEndTime>
-      <Cursor1Time time="16.059 ns"></Cursor1Time>
+      <ZoomStartTime time="984.230 ns"></ZoomStartTime>
+      <ZoomEndTime time="1,003.155 ns"></ZoomEndTime>
+      <Cursor1Time time="1,000.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="276"></NameColumnWidth>
@@ -1334,52 +1334,42 @@
       <wvobject fp_name="/cpu_tb/u_cpu/u_regfile/registers[14]" type="array">
          <obj_property name="ElementShortName">[14][31:0]</obj_property>
          <obj_property name="ObjectShortName">[14][31:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/cpu_tb/u_cpu/u_regfile/registers[13]" type="array">
          <obj_property name="ElementShortName">[13][31:0]</obj_property>
          <obj_property name="ObjectShortName">[13][31:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/cpu_tb/u_cpu/u_regfile/registers[12]" type="array">
          <obj_property name="ElementShortName">[12][31:0]</obj_property>
          <obj_property name="ObjectShortName">[12][31:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/cpu_tb/u_cpu/u_regfile/registers[11]" type="array">
          <obj_property name="ElementShortName">[11][31:0]</obj_property>
          <obj_property name="ObjectShortName">[11][31:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/cpu_tb/u_cpu/u_regfile/registers[10]" type="array">
          <obj_property name="ElementShortName">[10][31:0]</obj_property>
          <obj_property name="ObjectShortName">[10][31:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/cpu_tb/u_cpu/u_regfile/registers[9]" type="array">
          <obj_property name="ElementShortName">[9][31:0]</obj_property>
          <obj_property name="ObjectShortName">[9][31:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/cpu_tb/u_cpu/u_regfile/registers[8]" type="array">
          <obj_property name="ElementShortName">[8][31:0]</obj_property>
          <obj_property name="ObjectShortName">[8][31:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/cpu_tb/u_cpu/u_regfile/registers[7]" type="array">
          <obj_property name="ElementShortName">[7][31:0]</obj_property>
          <obj_property name="ObjectShortName">[7][31:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/cpu_tb/u_cpu/u_regfile/registers[6]" type="array">
          <obj_property name="ElementShortName">[6][31:0]</obj_property>
          <obj_property name="ObjectShortName">[6][31:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/cpu_tb/u_cpu/u_regfile/registers[5]" type="array">
          <obj_property name="ElementShortName">[5][31:0]</obj_property>
          <obj_property name="ObjectShortName">[5][31:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/cpu_tb/u_cpu/u_regfile/registers[4]" type="array">
          <obj_property name="ElementShortName">[4][31:0]</obj_property>

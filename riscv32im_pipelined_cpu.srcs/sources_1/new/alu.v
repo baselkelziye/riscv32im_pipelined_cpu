@@ -17,7 +17,7 @@ module alu (input [31:0]alu1_i,
                 5'b00100:   //SLL
                 result_r = alu1_i << alu2_i;
                 5'b01000:   //SLT
-                result_r = alu1_i < $signed(alu2_i) ? 1 : 0;
+                result_r = $signed(alu1_i) < $signed(alu2_i) ? 1 : 0;
                 5'b01100:   //SLTU
                 result_r = alu1_i < alu2_i ? 1 : 0;
                 5'b10000:   //XOR

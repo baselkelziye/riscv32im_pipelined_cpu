@@ -33,7 +33,7 @@ $finish;
 end
 
 always begin
-    #1 CLK = ~CLK;
+    #0.5 CLK = ~CLK;
 end
 
 
