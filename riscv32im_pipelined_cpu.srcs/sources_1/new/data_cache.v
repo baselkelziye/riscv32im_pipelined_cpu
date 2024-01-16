@@ -21,7 +21,7 @@ module data_cache(
         end
     end
     
-    assign #0.1 {data_r[3],data_r[2],data_r[1],data_r[0]} = {{cache_r[{address_i[31:2],2'b11}]},{cache_r[{address_i[31:2],2'b10}]},{cache_r[{address_i[31:2],2'b01}]},{cache_r[{address_i[31:2],2'b00}]}};
+    assign  {data_r[3],data_r[2],data_r[1],data_r[0]} = {{cache_r[{address_i[31:2],2'b11}]},{cache_r[{address_i[31:2],2'b10}]},{cache_r[{address_i[31:2],2'b01}]},{cache_r[{address_i[31:2],2'b00}]}};
     
     reg [7:0]data_byte_r;
     reg [15:0]data_half_r;

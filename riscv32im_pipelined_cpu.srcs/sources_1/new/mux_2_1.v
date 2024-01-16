@@ -35,4 +35,4 @@ module mux_2_1(
     end
     
     
-    endmodule;
+    endmodule

@@ -6,9 +6,11 @@ module if_id_stage_reg(
     input busywait,
     input [31:0] instruction_if_id_i,
     input [31:0] pc_if_id_i,//jump birimi PC i kullandigi icin onu da iletmemiz gerekiyor boru hattinda
+
     input stall,
     output reg [31:0] instruction_if_id_o,
     output reg [31:0] pc_if_id_o
+
     );
     
     always @(*)

@@ -224,7 +224,7 @@ module regfile(
                 registers[i] <= 32'h00000000;
         end
         else if (write_en_i && rd_i != 0) // Ensure rd_i is not 0, as x0 is always 0
-        begin #0
+        begin 
             registers[rd_i] <= rd_data_i;
         end
     end

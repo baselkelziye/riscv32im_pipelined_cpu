@@ -6,37 +6,31 @@ module ex_mem_stage_reg(
     input busywait,
     
     input [31:0] alu_out_ex_mem_i, //ALU CIKISI
-    output reg [31:0] alu_out_ex_mem_o,
-    
     input reg_wb_en_ex_mem_i, //writeback control sinyali
-    output reg reg_wb_en_ex_mem_o,
-    
     input [4:0] rd_ex_mem_i,
-    output reg [4:0] rd_ex_mem_o,
-    
     input [31:0] pc_ex_mem_i,
-    output reg [31:0] pc_ex_mem_o,//bunlara gerek yok aslinda cunku ALU nun cikisi direkt PC counter'a bagli bizde
-    
     input [1:0] wb_sel_ex_mem_i,
-    output reg [1:0] wb_sel_ex_mem_o,
-    
     input [31:0] imm_ex_mem_i,
-    output reg [31:0] imm_ex_mem_o,
-    
     input [4:0] rs1_label_ex_mem_i,
-    output reg [4:0] rs1_label_ex_mem_o,
-    
     input [4:0] rs2_label_ex_mem_i,
-    output reg [4:0] rs2_label_ex_mem_o,
-    
     input [3:0] read_write_sel_ex_mem_i,
-    output reg [3:0] read_write_sel_ex_mem_o,
-    
     input [31:0] rs2_ex_mem_i,//data cache'a yazilacak deger
-    output reg [31:0] rs2_ex_mem_o,
-    
     input is_memory_instruction_ex_mem_i,
-    output reg is_memory_instruction_ex_mem_o
+    input PC_sel_w_ex_mem_i,
+    
+    
+    output reg [31:0] alu_out_ex_mem_o,
+    output reg reg_wb_en_ex_mem_o,
+    output reg [4:0] rd_ex_mem_o,
+    output reg [31:0] pc_ex_mem_o,//bunlara gerek yok aslinda cunku ALU nun cikisi direkt PC counter'a bagli bizde
+    output reg [1:0] wb_sel_ex_mem_o,
+    output reg [31:0] imm_ex_mem_o,
+    output reg [4:0] rs1_label_ex_mem_o,
+    output reg [4:0] rs2_label_ex_mem_o,
+    output reg [3:0] read_write_sel_ex_mem_o, 
+    output reg [31:0] rs2_ex_mem_o,
+    output reg is_memory_instruction_ex_mem_o,
+    output reg PC_sel_w_ex_mem_o
     
     
     );
@@ -44,17 +38,18 @@ module ex_mem_stage_reg(
     always @(*)begin
     #0.1;
         if(rst_i) begin
-        alu_out_ex_mem_o = 32'd0;
-        reg_wb_en_ex_mem_o = 0;
-        rd_ex_mem_o = 5'd0;
-        pc_ex_mem_o = 32'd0;
-        wb_sel_ex_mem_o = 2'd0;
-        imm_ex_mem_o = 32'd0;
-        rs1_label_ex_mem_o = 5'd0;
-        rs2_label_ex_mem_o = 5'd0;
-        read_write_sel_ex_mem_o = 4'd0;
-        rs2_ex_mem_o = 32'd0;
-        is_memory_instruction_ex_mem_o = 0;
+        alu_out_ex_mem_o <= 32'd0;
+        reg_wb_en_ex_mem_o <= 0;
+        rd_ex_mem_o <= 5'd0;
+        pc_ex_mem_o <= 32'd0;
+        wb_sel_ex_mem_o <= 2'd0;
+        imm_ex_mem_o <= 32'd0;
+        rs1_label_ex_mem_o <= 5'd0;
+        rs2_label_ex_mem_o <= 5'd0;
+        read_write_sel_ex_mem_o <= 4'd0;
+        rs2_ex_mem_o <= 32'd0;
+        is_memory_instruction_ex_mem_o <= 0;
+        PC_sel_w_ex_mem_o <= 0;
         end
     end
     
@@ -72,6 +67,7 @@ module ex_mem_stage_reg(
         read_write_sel_ex_mem_o <= read_write_sel_ex_mem_i;
         rs2_ex_mem_o <= rs2_ex_mem_i;
         is_memory_instruction_ex_mem_o <= is_memory_instruction_ex_mem_i;
+        PC_sel_w_ex_mem_o <= PC_sel_w_ex_mem_i;
         end
         end
     

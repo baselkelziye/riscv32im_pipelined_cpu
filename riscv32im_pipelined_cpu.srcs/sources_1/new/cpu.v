@@ -21,11 +21,9 @@ module cpu( input clk_i,
             output [31:0]data_mem_w_data_o);
     
         
-    wire [31:0]PC_last_w;
-    
+    wire [31:0]PC_last_w;  
     wire [31:0]PC_w;
     wire [31:0]PC_4_w;
-    
     wire [31:0] instruction_if_id_i;
     wire [31:0] data_data_w;
     
@@ -45,70 +43,49 @@ module cpu( input clk_i,
      //*******************ID-EX STAGE VARIABLES***********   
     wire [31:0] rs1_id_ex_i; // pass rs1 register ID/EX stage
     wire [31:0] rs1_id_ex_o;
-     
     wire [31:0] pc_id_ex_o;//pass PC to ID/EX stage
-    
     wire [31:0] rs2_id_ex_i;//pass  rs2 to ID/EX stage
     wire [31:0] rs2_id_ex_o;
-    
     wire [31:0] imm_id_ex_i; //pass imm to ID/EX stage
     wire [31:0] imm_id_ex_o;
-    
-    
     wire [2:0] imm_sel_id_ex_i; //control signal for imm
-    wire [2:0] imm_sel_id_ex_o;
-    
+    wire [2:0] imm_sel_id_ex_o;  
     wire alu_op1_sel_id_ex_i; //alo op1 control signal 
-    wire alu_op1_sel_id_ex_o;
-    
+    wire alu_op1_sel_id_ex_o;   
     wire alu_op2_sel_id_ex_i;//alu op2 control signal
-    wire alu_op2_sel_id_ex_o;
-    
+    wire alu_op2_sel_id_ex_o; 
     wire [4:0] alu_op_id_ex_i; //alu operation selection signal
-    wire [4:0] alu_op_id_ex_o;
-    
+    wire [4:0] alu_op_id_ex_o; 
     wire [2:0]branch_sel_id_ex_i;//branch unit selection
-    wire [2:0]branch_sel_id_ex_o;
-    
-    
+    wire [2:0]branch_sel_id_ex_o;  
     wire [3:0]read_write_sel_id_ex_i;//read write to cache
-    wire [3:0]read_write_sel_id_ex_o;
-    
+    wire [3:0]read_write_sel_id_ex_o; 
     wire [1:0]wb_sel_id_ex_i;//which value to write back
-    wire [1:0]wb_sel_id_ex_o;
-    
+    wire [1:0]wb_sel_id_ex_o;  
     wire reg_wb_en_id_ex_i;//writeback signal
-    wire reg_wb_en_id_ex_o;
-    
-    wire [4:0] rd_id_ex_o;//pass rd label for the writeback
-    
+    wire reg_wb_en_id_ex_o;  
+    wire [4:0] rd_id_ex_o;//pass rd label for the writeback   
     wire [4:0] rs1_label_id_ex_o; //forwarding unit
-    wire [4:0] rs2_label_id_ex_o;
-    
+    wire [4:0] rs2_label_id_ex_o;    
+    wire [6:0] opcode_id_ex_o;
+    wire is_memory_instruction_id_ex_o;
 //*****************EX-MEM******************
     wire [31:0] alu_out_ex_mem_i;// for alu output
     wire [31:0] alu_out_ex_mem_o;
-    
-    
     wire [1:0] wb_sel_ex_mem_i;
-    wire [1:0] wb_sel_ex_mem_o;
-    
     wire reg_wb_en_ex_mem_i;
     wire reg_wb_en_ex_mem_o;
-    
-    
-    
     wire [4:0] rd_ex_mem_i;
-    wire [4:0] rd_ex_mem_o;
-    
-    wire [31:0] pc_ex_mem_o;
-    
-    wire [1:0] wb_sel_ex_mem_o;// control signal to WB 
-                                
-                                
-    wire [31:0] imm_ex_mem_o;
-    
+    wire [4:0] rd_ex_mem_o;  
+    wire [31:0] pc_ex_mem_o;  
+    wire [1:0] wb_sel_ex_mem_o;// control signal to WB                              
+    wire [31:0] imm_ex_mem_o;   
     wire [3:0] read_write_sel_ex_mem_o;
+    wire [4:0] rs1_label_ex_mem_o;
+    wire [4:0] rs2_label_ex_mem_o;   
+    wire [31:0] rs2_ex_mem_o; 
+    wire is_memory_instruction_ex_mem_o;  
+    wire PC_sel_w_ex_mem_o;
     
     
      // forwarding unit                   
@@ -119,37 +96,32 @@ module cpu( input clk_i,
     
 //    *********** MEM-WB STAGE ***************
     wire reg_wb_en_mem_wb_i;
-    wire reg_wb_en_mem_wb_o;
-    
-    
-    wire [4:0] rd_mem_wb_o;
-    
-    wire [31:0] alu_out_mem_wb_o;
-    
-    wire [1:0] wb_sel_mem_wb_o; // control signal to write back to reg file (which value)
-   
-   wire [31:0] rd_data_mem_wb_i;
-   wire [31:0] rd_data_mem_wb_o;
-   
-   
-   wire [31:0] imm_mem_wb_o;
-   
-   wire [31:0] pc_mem_wb_o;
-   
-   wire [3:0] read_write_sel_mem_wb_o;
+    wire reg_wb_en_mem_wb_o;  
+    wire [4:0] rd_mem_wb_o;  
+    wire [31:0] alu_out_mem_wb_o;  
+    wire [1:0] wb_sel_mem_wb_o; // control signal to write back to reg file (which value) 
+    wire [31:0] rd_data_mem_wb_i;
+    wire [31:0] rd_data_mem_wb_o; 
+    wire [31:0] imm_mem_wb_o;
+    wire [31:0] pc_mem_wb_o;
+    wire [3:0] read_write_sel_mem_wb_o;
+    wire is_memory_instruction_mem_wb_o; 
+    wire [31:0] rs2_mem_wb_o;   
+    wire [31:0] pc_mem_wb_o_4; 
 
+   
+    
+    //************ tmp values *******************\\
+    
+    //tmp control signals
+    wire is_memory_signal;
+    wire is_load_instruction_id_ex_i;
+    wire stall;
     wire [31:0]alu_in1_w;
-    wire [31:0]alu_in2_w;
-    
-
-    
+    wire [31:0]alu_in2_w; 
     wire [31:0]reg_wb_data_w;
-    
-    
-    
     wire  data_busy_w;
     wire  ins_busy_w;
-    
     wire busy_w;
     wire write_en_w;
     
@@ -157,8 +129,8 @@ module cpu( input clk_i,
     assign write_en_w = (reg_wb_en_mem_wb_o & !busy_w);//reg i mem_wb_o yapmak laizm en son
 
     mux_2_32 u_PC_mux ( .in0_i(PC_4_w),//normal PC degeri mi 
-                        .in1_i(alu_out_ex_mem_i),//ALU de hesaplanan dallanacak adres degeri
-                        .sel_i(PC_sel_w), // secim ucu, (jump biriminde tetiklenir)
+                        .in1_i(alu_out_ex_mem_o),//ALU de hesaplanan dallanacak adres degeri
+                        .sel_i(PC_sel_w_ex_mem_o), // secim ucu, (jump biriminde tetiklenir)
                         .out_o(PC_last_w));// secilen degeri cikis verililir
     
     pc_reg r_pc_reg(.clk_i(clk_i),//saat derbesinde PC registerdeki degeri disariya verir
@@ -173,10 +145,9 @@ module cpu( input clk_i,
                         
     instr_cache c_instr_cache(  .clk_i(clk_i),
                                 .rst_i(rst_i),
-                                 .address_i(PC_w),
-                                .read_data_o(instruction_if_id_i),
+                                 .address_i(PC_w),//PC i gir
+                                .read_data_o(instruction_if_id_i),// komut getir
                                 .busy_o(ins_busy_w));
-                                
 
    //******* IF-ID PIPELINE MODULE**********                  
      if_id_stage_reg if_id(
@@ -206,14 +177,12 @@ module cpu( input clk_i,
                                 .rs2_data_o(rs2_id_ex_i       ));
                         
                         
-    wire is_memory_signal;
-    wire is_load_instruction;
-    wire stall;
+
     
-    
+    //load data hazard durumunda ID asamasinda 1 tane 
     hazard_detection_unit hazard_detection_unit(
     .clk_i(clk_i),
-    .is_load_instruction(is_load_instruction),
+    .is_load_instruction(is_load_instruction_id_ex_o),
     .rd_label_id_ex_o(rd_id_ex_o),
     .rs1_label_if_id_o(rs1_if_id_o),
     .rs2_label_if_id_o(rs2_if_id_o),
@@ -232,7 +201,7 @@ module cpu( input clk_i,
                                 .wb_sel_o(wb_sel_id_ex_i            ),
                                 .reg_w_en_o(reg_wb_en_id_ex_i       ),
                                 .is_memory_instruction_o(is_memory_signal),
-                                .is_load_instruction(is_load_instruction));
+                                .is_load_instruction(is_load_instruction_id_ex_i));
                                 
     
     imm_gen u_imm_gen(
@@ -246,28 +215,29 @@ module cpu( input clk_i,
 
     
     branch_jump u_branch_jump(  
-                                .in1_i(alu_in1_forwarded_input         ),//alu output yap
-                                .in2_i(alu_in2_forwarded_input         ),
+                                .in1_i(alu_in1_w         ),//alu output yap
+                                .in2_i(alu_in2_w         ),
                                 .bj_sel_i(branch_sel_id_ex_o),//sinyal
                                 .PC_sel_o(PC_sel_w          ));//sinyal
-        wire [3:0] muxed_data_signal;                      
-       mux_2_4 data_signal_selection(
+                                
+        wire [3:0] reset_data_signal_flush_id_ex; 
+        assign data_signal_sel = (stall | PC_sel_w_ex_mem_o);                     
+       mux_2_4 data_signal_selection_id(
         .in0_i(read_write_sel_id_ex_i),
-        .in1_i(4'b0),
-        .sel_i(stall),
-        .out_o(muxed_data_signal)
+        .in1_i(4'bZZZZ),
+        .sel_i( data_signal_sel),
+        .out_o(reset_data_signal_flush_id_ex)
         );                                         
                  
                  
-        wire muxed_reg_write_en;
-        mux_2_1 muxed_reg_en(
+        wire reset_reg_write_en_id_ex;
+        mux_2_1 muxed_reg_en_id(
         .in0_i(reg_wb_en_id_ex_i),
-        .in1_i(1'b0),
-        .sel_i(stall),
-        .out_o(muxed_reg_write_en));       
+        .in1_i(1'bZ),
+        .sel_i(data_signal_sel),
+        .out_o(reset_reg_write_en_id_ex));       
        //****************ID-EX PIPELINE REGISTER**************
-        wire [6:0] opcode_id_ex_o;
-        wire is_memory_instruction_id_ex_o;
+      wire flush_id_ex_o;
        id_ex_stage_reg id_ex(
                          .clk_i(clk_i),
                          .rst_i(rst_i),
@@ -299,14 +269,14 @@ module cpu( input clk_i,
                          .branch_sel_id_ex_i(branch_sel_id_ex_i), //branch unit select
                          .branch_sel_id_ex_o(branch_sel_id_ex_o),//signal 3 bit
                          
-                         .read_write_sel_id_ex_i(muxed_data_signal),//in case of stall, send 0
+                         .read_write_sel_id_ex_i(reset_data_signal_flush_id_ex),//in case of stall, send 0
                          //else send old vbalue
                          .read_write_sel_id_ex_o(read_write_sel_id_ex_o),
                          
                          .wb_sel_id_ex_i(wb_sel_id_ex_i),//
                          .wb_sel_id_ex_o(wb_sel_id_ex_o),
                          
-                         .reg_wb_en_id_ex_i(muxed_reg_write_en),
+                         .reg_wb_en_id_ex_i(reset_reg_write_en_id_ex),
                          .reg_wb_en_id_ex_o(reg_wb_en_id_ex_o),
                          
                          .rd_id_ex_i(rd_if_id_o),
@@ -318,11 +288,14 @@ module cpu( input clk_i,
                          .opcode_id_ex_i(instruction_opcode_if_id_o),
                          .opcode_id_ex_o(opcode_id_ex_o),
                          .is_memory_instruction_id_ex_i(is_memory_signal),
-                         .is_memory_instruction_id_ex_o(is_memory_instruction_id_ex_o)     
+                         .is_memory_instruction_id_ex_o(is_memory_instruction_id_ex_o),
+                         .is_load_instruction_id_ex_i(is_load_instruction_id_ex_i),
+                         .is_load_instruction_id_ex_o(is_load_instruction_id_ex_o),
+                         .stall(stall)
                          );
                          
                                           
-   wire is_memory_instruction_mem_wb_o; 
+
    forwarding_unit forwarding_unit(
                         .rd_label_ex_mem_o(rd_ex_mem_o),
                         .rd_label_mem_wb_o(rd_mem_wb_o),
@@ -354,37 +327,40 @@ module cpu( input clk_i,
                 .in3_i(rd_data_mem_wb_o),
                 .sel_i(forwardDataCache),
                 .out_o(forwarded_address));
+                
                           
     mux_2_32 u_alu_in1_mux(      
-                                .in0_i(rs1_id_ex_o        ),
+                                .in0_i(alu_in1_w),
                                 .in1_i(pc_id_ex_o         ),
                                 .sel_i(alu_op1_sel_id_ex_o),
-                                .out_o(alu_in1_w          ));
+                                .out_o(alu_in1_forwarded_input));
 
        mux_4_32 u_alu_in(
-                    .in0_i(alu_in1_w), //bir onceki 2x1 muxun cikisi (bagimlilik yok)
+                    .in0_i(rs1_id_ex_o), //bir onceki 2x1 muxun cikisi (bagimlilik yok)
                     .in1_i(alu_out_mem_wb_o),//RS1 from mem/wb rd
                     .in2_i(alu_out_ex_mem_o),//RS1 from ex/mem rd
                     .in3_i(rd_data_mem_wb_o),// 
                     .sel_i(forwardA),//forwardA 
-                    .out_o(alu_in1_forwarded_input)
+                    .out_o(alu_in1_w)
                     );
+                    
+                     
     
     mux_2_32 u_alu_in2_mux(
-                                .in0_i(rs2_id_ex_o        ),
+                                .in0_i(alu_in2_w),
                                 .in1_i(imm_id_ex_o        ), // ID-EX yazmacindan imm_id_ex_o oku
                                 .sel_i(alu_op2_sel_id_ex_o),//sinyal
-                                .out_o(alu_in2_w          ));
+                                .out_o(alu_in2_forwarded_input));
                                 
                                 
-
+        
        mux_4_32 u_alu_in2(
-                    .in0_i(alu_in2_w), //bir onceki 2x1 muxun cikisi (bagimlilik yok)
+                    .in0_i(rs2_id_ex_o), //bir onceki 2x1 muxun cikisi (bagimlilik yok)
                     .in1_i(alu_out_mem_wb_o),//RS2 from mem/wb rd
                     .in2_i(alu_out_ex_mem_o),//RS2 from ex/mem rd
                     .in3_i(rd_data_mem_wb_o),// 
                     .sel_i(forwardB),//forwardAB
-                    .out_o(alu_in2_forwarded_input)
+                    .out_o(alu_in2_w)
                     );                                      
                                           
     alu u_alu(  .alu1_i(alu_in1_forwarded_input),//bunlar anlik cikis oldugu icin pipeline'a girmelerine gerek yok.
@@ -396,19 +372,32 @@ module cpu( input clk_i,
 
                                 
   //******************************* EX-MEM                             
+        wire [3:0]  reset_data_signal_flush_ex_mem;   
+                     
+         mux_2_4 data_signal_selection_ex(
+        .in0_i(read_write_sel_id_ex_o),
+        .in1_i(4'b0),
+        .sel_i( PC_sel_w_ex_mem_o),
+        .out_o(reset_data_signal_flush_ex_mem)
+        );                                         
+                 
+                 
+        wire reset_reg_write_en_ex_mem;
+        mux_2_1 muxed_reg_en_ex(
+        .in0_i(reg_wb_en_id_ex_o),
+        .in1_i(1'b0),
+        .sel_i(PC_sel_w_ex_mem_o),
+        .out_o(reset_reg_write_en_ex_mem));  
                           
                           
-     wire [4:0] rs1_label_ex_mem_o;
-     wire [4:0] rs2_label_ex_mem_o;   
-     wire [31:0] rs2_ex_mem_o; 
-     wire is_memory_instruction_ex_mem_o;                  
+
     ex_mem_stage_reg ex_mem(
                     .clk_i(clk_i),
                     .rst_i(rst_i),
                     .busywait(busy_w),
                     .alu_out_ex_mem_i(alu_out_ex_mem_i),
                     .alu_out_ex_mem_o(alu_out_ex_mem_o),
-                    .reg_wb_en_ex_mem_i(reg_wb_en_id_ex_o),
+                    .reg_wb_en_ex_mem_i(reset_reg_write_en_ex_mem),
                     .reg_wb_en_ex_mem_o(reg_wb_en_ex_mem_o),
                     .rd_ex_mem_i(rd_id_ex_o),//in_id nin cikisini ver buraya
                     .rd_ex_mem_o(rd_ex_mem_o),
@@ -422,12 +411,14 @@ module cpu( input clk_i,
                     .rs1_label_ex_mem_o(rs1_label_ex_mem_o),
                     .rs2_label_ex_mem_i(rs2_label_id_ex_o),
                     .rs2_label_ex_mem_o(rs2_label_ex_mem_o),
-                    .read_write_sel_ex_mem_i(read_write_sel_id_ex_o),
+                    .read_write_sel_ex_mem_i(reset_data_signal_flush_ex_mem),
                     .read_write_sel_ex_mem_o(read_write_sel_ex_mem_o),
                     .rs2_ex_mem_i(forwarded_address),
                     .rs2_ex_mem_o(rs2_ex_mem_o),
                     .is_memory_instruction_ex_mem_i(is_memory_instruction_id_ex_o),
-                    .is_memory_instruction_ex_mem_o(is_memory_instruction_ex_mem_o)
+                    .is_memory_instruction_ex_mem_o(is_memory_instruction_ex_mem_o),
+                    .PC_sel_w_ex_mem_i(PC_sel_w),
+                    .PC_sel_w_ex_mem_o(PC_sel_w_ex_mem_o)
                     );
                     
                     
@@ -452,8 +443,7 @@ module cpu( input clk_i,
     
 
                 
-
-    wire [31:0] rs2_mem_wb_o;           
+       
     mem_wb_stage_reg mem_wb(
                     .clk_i(clk_i),
                     .rst_i(rst_i),
@@ -478,7 +468,7 @@ module cpu( input clk_i,
                     .rs2_mem_wb_o(rs2_mem_wb_o)
     );
     
-    wire [31:0] pc_mem_wb_o_4;
+
         pc_adder u_pc_adder1(.in_i(pc_mem_wb_o),//PC i 4 ile toplar
                         .out_o(pc_mem_wb_o_4)); // cunku son muxta PC+4 var, su ana kadar sadece PC i ilettik biz, 4 ile toplayip yollamamiz lazim.
            

@@ -26,28 +26,23 @@ module mem_wb_stage_reg(
     input busywait,
     
     input reg_wb_en_mem_wb_i,
-    output reg reg_wb_en_mem_wb_o,//write enable ucu
-    
     input [4:0] rd_mem_wb_i,
-    output reg [4:0] rd_mem_wb_o,
-    
     input [31:0] rd_data_mem_wb_i,
-    output reg [31:0] rd_data_mem_wb_o,
-    
     input [31:0] alu_out_mem_wb_i,
-    output reg [31:0] alu_out_mem_wb_o,
-    
     input [1:0] wb_sel_mem_wb_i,
-    output reg [1:0] wb_sel_mem_wb_o,
-    
     input [31:0] imm_mem_wb_i,
-    output reg [31:0] imm_mem_wb_o,
-    
     input [31:0] pc_mem_wb_i,
-    output reg [31:0] pc_mem_wb_o,
     input is_memory_instruction_mem_wb_i,
-    output reg is_memory_instruction_mem_wb_o,
     input [31:0] rs2_mem_wb_i,
+    
+    output reg reg_wb_en_mem_wb_o,//write enable ucu
+    output reg [4:0] rd_mem_wb_o,
+    output reg [31:0] rd_data_mem_wb_o,
+    output reg [31:0] alu_out_mem_wb_o,
+    output reg [1:0] wb_sel_mem_wb_o,
+    output reg [31:0] imm_mem_wb_o,
+    output reg [31:0] pc_mem_wb_o,
+    output reg is_memory_instruction_mem_wb_o,
     output reg [31:0] rs2_mem_wb_o
 
     );// rd yazmacin numaras

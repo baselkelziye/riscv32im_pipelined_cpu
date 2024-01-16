@@ -37,7 +37,7 @@ module forwarding_unit(
     
     always @(rs1_label_id_ex_o, reg_wb_en_ex_mem_o, reg_wb_en_mem_wb_o, rd_label_ex_mem_o, rd_label_mem_wb_o,is_memory_instruction_mem_wb_o) begin
     
-    if (reg_wb_en_mem_wb_o && (rd_label_mem_wb_o != 0) &&
+    if (reg_wb_en_mem_wb_o && (rd_label_mem_wb_o != 0) && //done
             !(reg_wb_en_ex_mem_o && (rd_label_ex_mem_o != 0) && (rd_label_ex_mem_o == rs1_label_id_ex_o)) &&
             (rd_label_mem_wb_o == rs1_label_id_ex_o) &&
            !is_memory_instruction &&
@@ -53,10 +53,10 @@ module forwarding_unit(
                  forwardA = 2'b11;
                 end
         
-        else if(rd_label_ex_mem_o != 5'b0  &&
-           reg_wb_en_ex_mem_o &&
-           $signed(rd_label_ex_mem_o) == $signed(rs1_label_id_ex_o) &&
-           !is_memory_instruction)
+        else if(rd_label_ex_mem_o != 5'b0  && // done
+           reg_wb_en_ex_mem_o && //done
+           $signed(rd_label_ex_mem_o) == $signed(rs1_label_id_ex_o)/* && // done
+           !is_memory_instruction*/) //yandi
            begin
             forwardA = 2'b10;//RS1 = EX/MEM RD
            end
@@ -71,9 +71,9 @@ module forwarding_unit(
 
         if(rd_label_ex_mem_o  && 
            reg_wb_en_ex_mem_o &&
-           $signed(rd_label_ex_mem_o) == $signed(rs2_label_id_ex_o) &&
+           $signed(rd_label_ex_mem_o) == $signed(rs2_label_id_ex_o) /* &&
            !is_memory_instruction && 
-           !is_memory_instruction_mem_wb_o)
+           !is_memory_instruction_mem_wb_o*/)
             begin                               
                     forwardB = 2'b10; // RS2 = EX/MEM  RD
             end         
@@ -98,6 +98,12 @@ module forwarding_unit(
             end
     end
     endmodule
+    
+
+//endmodule
+
+
+
     
 
 //endmodule

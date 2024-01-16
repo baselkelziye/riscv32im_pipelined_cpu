@@ -22,9 +22,9 @@ initial begin
 
     CLK = 1'b0;
     RESET = 1'b1;
-    #1;
+    #5;
     RESET = 1'b1;
-    #1;
+    #5;
     RESET = 1'b0;
 
 #1000
@@ -33,7 +33,7 @@ $finish;
 end
 
 always begin
-    #0.5 CLK = ~CLK;
+    #1 CLK = ~CLK;
 end
 
 
